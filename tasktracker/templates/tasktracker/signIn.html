@@ -1,0 +1,23 @@
+<h1>This will be the sign in screen</h1>
+{% if message %}
+    <script>
+        alert('{{message}}')
+    </script>
+{% endif %}
+
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sign In</title>
+    </head>
+    <body>
+        <form>
+            {% csrf_token %}
+            Email:
+            <input type='email' name='email'>
+            Password:
+            <input type='password' name='password'>
+            <input type='submit' value='Sign In'>
+        </form>
+    </body>
+</html>
