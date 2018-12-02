@@ -1,2 +1,41 @@
-<h1>This is the To Do List view</h1>
+<html>
+<head>
+<style>
+.flex_row {diplay:flex;flex-direction:row;}
+.button {text-decoration:none;background-color=lightgray;}
+</style>
+</head>
+<body>
+<h1>You are viewing: {{ list_name }}</h1>
+
+<a class='button' href="{% url 'tasktracker:share_list' list_id %}">Share this list</a>
+<br></br>
+
 <p>Here you will be able to manage your to do list</p>
+
+{% if tasks %}
+	<form action="{% url 'tasktracker:search_task' list_id %}" method='get'>
+
+		<input type='text' name='search_str'>
+		<input type='submit' value='Search'>
+	</form>
+	{% for task in tasks %}
+	<div class='flex_row'>
+		<div>{{task.val.title}}:{{task.val.description}}
+		<a class='button' href="{% url 'tasktracker:edit_task' list_id task.key %}">
+			Edit</a>
+		<a class='button' href="{% url 'tasktracker:delete_task' list_id task.key %}">
+			Delete</a>
+	</div>
+	<br></br>
+	{% endfor %}
+{% else %}
+	No tasks in list
+	<br></br>
+{% endif %}
+
+<a href="{% url 'tasktracker:create_task' list_id%}">Create a task</a>
+<a href="{% url 'tasktracker:logout' %}" 
+                        style="position:absolute;top:10px;right:10px;">Logout</a>
+</body>
+</html>

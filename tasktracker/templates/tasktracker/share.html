@@ -1,0 +1,15 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<form action="{% url 'tasktracker:post_share_list' list_id %}" method='post'>
+			{% csrf_token %}
+			Email of the user to share the to do list with:
+                        <input type='email' name='email'>
+                        <input type='submit' value='Share'>
+                </form>
+		<a href="{% url 'tasktracker:logout' %}" 
+                        style="position:absolute;top:10px;right:10px;">Logout</a>	
+	</body>
+</html>
+

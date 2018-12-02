@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('tasktracker/', include('tasktracker.urls')),
+    path('', include('tasktracker.urls', namespace='tasktracker')),
     path('admin/', admin.site.urls),
 ]

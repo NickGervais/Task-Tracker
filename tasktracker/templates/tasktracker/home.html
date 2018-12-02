@@ -1,2 +1,40 @@
-<h1>Welcome {{email}} to your home page</h1>
-<p>Here you will see a list of your to do lists</p>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+	</head>
+	<body>
+		{% csrf_token %}
+		<h1>Welcome {{email}} to your home page</h1>
+		<p>Here you will see a list of your to do lists</p>
+		{% if todoLists %}
+			{% for list in todoLists %}
+			<div style="display:flex;flex-direction:row;">
+				<a href="{% url 'tasktracker:todoList' list.list_id %}">
+					{{list.name}}</a>
+				<span>----</span>
+				<a href="{% url 'tasktracker:delete_list' list.list_id %}">
+					Delete</a>
+			</div>
+			<br></br>
+			{% endfor %}
+		{% else %}
+			You have no To Do Lists
+			<br></br>
+		{% endif %}
+		<a href="{% url 'tasktracker:create_todoList' %}">Create a To do List</a>
+		
+		{% if shared_lists %}
+		<h2>Lists shared with me:</h2>
+		{% for list in shared_lists %}
+			<a href="{% url 'tasktracker:todoList' list.list_id %}">
+				{{list.name}}</a>
+			<br></br>
+		{% endfor %}
+		{% endif %}
+
+		
+		<a href="{% url 'tasktracker:logout' %}" 
+			style="position:absolute;top:10px;right:10px;">Logout</a>
+	</body>
+</html>

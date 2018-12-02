@@ -1,0 +1,23 @@
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sign In</title>
+    </head>
+    <body>
+	{% if message %}
+		<script>alert('{{message}}')</script>
+	{% endif %}
+        <form action="postsignUp/" method="post">
+            {% csrf_token %}
+	    Name:
+	    <input type='text' name='name'>
+            Email:
+            <input type='email' name='email'>
+            Password:
+            <input type='password' name='password'>
+            <input type='submit' value='Sign Up'>
+	</form>
+    	<a href="{% url 'tasktracker:logout' %}" 
+                        style="position:absolute;top:10px;right:10px;">Logout</a>
+    </body>
+</html>

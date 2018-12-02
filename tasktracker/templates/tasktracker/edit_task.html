@@ -1,0 +1,39 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<h1> Editing task: {{task.title}} Stat: {{task.state}}</h1>
+                <form name='edit_task' action="{% url 'tasktracker:post_edit_task' list_id task_id%}" method='post'>
+                        {% csrf_token %}
+			<input type='text' name='task_id' value='{{task_id}}' required style='display:none'>
+                        Title:
+			<input type='text' name='title' value='{{task.title}}' required>
+                        Description:
+			<input type='text' name='description' value='{{task.description}}' required>
+                        Progression State:
+			<select name='state' style='width:150px' required>
+				<option value='todo'{%ifequal task.state 'todo'%}selected{%endifequal%}>To Do</option>
+                        	<option value='scheduled'{%ifequal task.state 'scheduled'%}selected{%endifequal%}>Scheduled</option>
+                        	<option value='done'{%ifequal task.state 'done'%}selected{%endifequal%}>Done</option>
+                	</select>
+			Time Slot:
+			{% load math_tags %}
+                	<select name='time_start' style='width:150px'>
+                        	{% for i in time_slot_range %}
+				<option value='{{i}}:00'>{{i}}:00</option>
+                        	{% endfor %}
+				<option value='{{task.time_start}}' selected>{{task.time_start}}</option>
+                	</select>
+                	Time Length:
+			<select name='time_length' style='width:150px'>
+                        	{% for i in time_length_range %}
+				<option value='{{i|mult:0.5}}'>{{i|mult:0.5}}</option>
+                        	{% endfor %}
+				<option value='{{task.time_length}}' selected>{{task.time_length}}</option>
+                	</select>
+                        <input type='submit' value='Edit List'>
+                </form>
+		<a href="{% url 'tasktracker:logout' %}" 
+                        style="position:absolute;top:10px;right:10px;">Logout</a>
+	</body>
+</html>

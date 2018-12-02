@@ -1,0 +1,41 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<h1> Creating a task for {{list_name}}</h1>
+		<form name='creat_task' action="{% url 'tasktracker:create_task' list_id %}" method='post'>
+			{% csrf_token %}
+			Title:
+			<input type='text' name='title' required>
+			Description:
+			<input type='text' name='description' required>
+			Progression State:
+			<input list='states' type='text' name='state' required>
+			Time Slot:
+			<input list='time_slots' name='time_start'>
+			Time Length:
+			<input list='time_lengths' name='time_length'>
+			<input type='submit' value='Create List'>
+		</form>
+
+		<datalist id='states'>
+			<option selected='selected' value='todo'>
+			<option value='scheduled'>
+			<option value='done'>
+		</datalist>
+		{% load math_tags %}
+		<datalist id='time_slots'>
+			{% for i in time_slot_range %}
+			<option value='{{i}}:00'>
+			{% endfor %}
+		</datalist>
+		<datalist id='time_lengths'>
+			{% for i in time_length_range %}
+			<option value='{{i|mult:0.5}}'>
+			{% endfor %}
+		</datalist>
+		<a href="{% url 'tasktracker:logout' %}" 
+                        style="position:absolute;top:10px;right:10px;">Logout</a>
+	</body>
+</html>
+

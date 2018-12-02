@@ -1,0 +1,17 @@
+<html>
+	<head>
+	</head>
+	<body>
+		{% csrf_token %}
+		{% if result_tasks %}
+			{% for task in result_tasks %}
+			<a href="{% url 'tasktracker:edit_task' list_id task.key ">
+				{{task.val.title}}:{{task.val.description}}</a>
+			<br></br>
+			{% endfor %}
+		{% endif %}
+		<br></br>
+		<a href="{% url 'tasktracker:logout' %}"
+                        style="position:absolute;top:10px;right:10px;">Logout</a>
+	</body>
+</html>

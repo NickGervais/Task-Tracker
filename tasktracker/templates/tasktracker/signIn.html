@@ -11,13 +11,14 @@
         <title>Sign In</title>
     </head>
     <body>
-        <form>
+        <form action="home/" method="post">
             {% csrf_token %}
             Email:
             <input type='email' name='email'>
             Password:
             <input type='password' name='password'>
             <input type='submit' value='Sign In'>
+	    <a href="{% url 'tasktracker:signUp' %}">Sign Up<a>
         </form>
     </body>
 </html>
